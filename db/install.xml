@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/etutorium/db" VERSION="20151009" COMMENT="XMLDB file for Moodle mod/etutorium"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="etutorium" COMMENT="Default comment for etutorium, please edit me" NEXT="etutoriumwebinars">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="course"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Course etutorium activity belongs to" PREVIOUS="id" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="name field for moodle instances" PREVIOUS="course" NEXT="intro"/>
+        <FIELD NAME="intro" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" COMMENT="General introduction of the etutorium activity" PREVIOUS="name" NEXT="introformat"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)" PREVIOUS="intro" NEXT="timecreated"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="introformat" NEXT="timemodified" COMMENT="Time created"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" PREVIOUS="timecreated" NEXT="apikey" COMMENT="Time modified"/>
+	<FIELD NAME="apikey" LENGTH="40" NOTNULL="false" SEQUENCE="false" TYPE="char" COMMENT="Apikey" PREVIOUS="timemodified"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+      </INDEXES>
+    </TABLE>
+	<TABLE NAME="etutoriumwebinars" COMMENT="Save adding webinars from etutorium" PREVIOUS="etutorium">
+		<FIELDS>
+			<FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" NEXT="etutorium_id"/>
+			<FIELD NAME="etutorium_id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" COMMENT="Etutorium module id" PREVIOUS="id" NEXT="webinar_id"/>
+			<FIELD NAME="webinar_id" SEQUENCE="false" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" COMMENT="Etutorium webinar id" PREVIOUS="etutorium_id" NEXT="title" />
+			<FIELD NAME="title" SEQUENCE="false" TYPE="char" LENGTH="128" NOTNULL="true" COMMENT="Webinar title" PREVIOUS="webinar_id" NEXT="description" />
+			<FIELD NAME="description" SEQUENCE="false" TYPE="text" LENGTH="medium" NOTNULL="false" COMMENT="Webinar description" PREVIOUS="title" NEXT="start_time" />
+			<FIELD NAME="start_time" SEQUENCE="false" TYPE="datetime" LENGTH="10" NOTNULL="false" DEFAULT="0" COMMENT="Webinar start time" PREVIOUS="description" NEXT="finish_time"/>
+			<FIELD NAME="finish_time" SEQUENCE="false" TYPE="datetime" LENGTH="10" NOTNULL="false" DEFAULT="0" COMMENT="Webinar start time" PREVIOUS="start_time"/>
+		</FIELDS>
+		<KEYS>
+			<KEY NAME="primary" TYPE="primary" FIELDS="id" />
+		</KEYS>
+	</TABLE>
+  </TABLES>
+</XMLDB>
