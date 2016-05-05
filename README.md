@@ -1,1 +1,1 @@
-Repository for Moodle module eturoium
+Repository for Moodle up to v.2.9 module eturoium
