@@ -1,1 +1,1 @@
-# moodle.etutorium.com
+Repository for Moodle module eturoium
