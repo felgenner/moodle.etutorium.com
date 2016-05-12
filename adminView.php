@@ -44,7 +44,7 @@ echo $result = renderfile('getWebinars', array('data' => array('data' => $userwe
             <span><input type="checkbox" id="usestart_time"></span>
             <span><?= get_string('start_time','etutorium') ?>:</span>
             <span><?php
-            $exam_date=new datepickermini();
+            $exam_date=new etutorium_datepickermini();
             echo $exam_date->display('start_time', true);
             ?></span>
         </div>
@@ -52,7 +52,7 @@ echo $result = renderfile('getWebinars', array('data' => array('data' => $userwe
             <span><input type="checkbox" id="usefinish_time"></span>
             <span><?= get_string('finish_time', 'etutorium') ?>:</span>
             <span><?php
-            $exam_date=new datepickermini();
+            $exam_date=new etutorium_datepickermini();
             echo $exam_date->display('finish_time', true);
             ?></span>
         </div>

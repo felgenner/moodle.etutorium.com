@@ -1,5 +1,5 @@
 <?php
-class datepickermini{
+class etutorium_datepickermini{
     
     //var $usedatepickermini=false;
 
