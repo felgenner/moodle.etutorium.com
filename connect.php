@@ -83,9 +83,9 @@ function webinarConnect($webinar, $etutorium, $dataconnect){
         $request = array_merge(array(
             'apikey' => $etutorium->apikey,
             'webinar_id' => $webinar->webinar_id,
-            'email' => $USER->email,
-            'first_name' => (!empty($USER->firstname)) ? $USER->firstname : '',
-            'last_name' => (!empty($USER->lastname)) ? $USER->lastname : '',
+            'email' => $dataconnect->getEmail(),
+            'first_name' => $dataconnect->getFirstname(),
+            'last_name' => $dataconnect->getLastname(),
         ), $req);
 
         curl_setopt($curl, CURLOPT_URL, $dataconnect->getPath('webinarConnect'));

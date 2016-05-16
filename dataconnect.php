@@ -7,6 +7,29 @@ class dataconnect
     const PROTOCOL = 'https';
     const DOMAIN = 'api.etutorium.com';
 
+    var $firstname = '';
+    var $lastname = '';
+    var $email = '';
+
+    function __construct() {
+        global $USER;
+        $this->firstname = (!empty($USER->firstname)) ? $USER->firstname : '';
+        $this->lastname = (!empty($USER->lastname)) ? $USER->lastname : '';
+        $this->email = $USER->email;
+    }
+
+    function getFirstname() {
+        return $this->firstname;
+    }
+
+    function getLastname() {
+        return $this->lastname;
+    }
+
+    function getEmail() {
+        return $this->email;
+    }
+    
     function returnpath($pathname)
     {
         $path = array(
