@@ -38,9 +38,10 @@
  *
  * The variable name for the capability definitions array is $capabilities
  *
- * @package    mod_etutorium
- * @copyright  2015 Your Name
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author Petrina Alexandr <info@aktivcorp.com>
+ * @copyright (c) 2016, Aktive Corporation
+ * @version 1.0
+ * @package mod/etutorium
  */
 defined('MOODLE_INTERNAL') || die();
 // Modify capabilities as needed and remove this comment.

@@ -2,8 +2,8 @@ function AdminJs(apikey, etutorium_id) {
 	this.apikey = apikey;
 	this.etutorium_id = etutorium_id;
 	this.userweblist = [];
-	this.allweblist=[];
-	
+	this.allweblist = [];
+
 	this.viewpanel = function() {
 		document.getElementById('error').innerHTML = '';
 		if (document.getElementById('searchpanel').style.display == 'none') {
@@ -24,10 +24,11 @@ function AdminJs(apikey, etutorium_id) {
 					}
 				}
 			);
-		} else
+		} else {
 			document.getElementById('searchpanel').style.display = 'none';
+		}
 	};
-	
+
 	this.getallwebinarlist = function() {
 		document.getElementById('error').innerHTML = '';
 		data = {};
@@ -44,7 +45,7 @@ function AdminJs(apikey, etutorium_id) {
 				data['finish_time'] = document.getElementById('finish_time').value;
 			}
 		}
-		q=this;
+		q = this;
 		send(
 			'/mod/etutorium/getWebinars.php',
 			data,
@@ -58,7 +59,7 @@ function AdminJs(apikey, etutorium_id) {
 			}
 		);
 	};
-	
+
 	this.getwebinarbyid = function(dataid) {
 		result = false;
 		for (key in this.allweblist) {
@@ -80,15 +81,16 @@ function AdminJs(apikey, etutorium_id) {
 		}
 		return {result:result,key:key};
 	};
-	
+
 	this.viewmore = function(dataid, id){
-		if (id == 'allweblist')
+		if (id == 'allweblist') {
 			webinar = this.getwebinarbyid(dataid);
-		else
+		} else {
 			webinar = this.getusewebinarbyid(dataid);
-		if (webinar.result === false)
+		}
+		if (webinar.result === false) {
 			alert('Not found');
-		else {
+		} else {
 			document.getElementById(id + 'moreinfo').innerHTML = '<table style="width:100%;">\n\
 <tr>\n\
 <td style="text-align:right; cursor:pointer;" onclick="webinaredit.closeinfo(\'' + id + '\')" colspan=2> X </td>\n\
@@ -117,21 +119,21 @@ function AdminJs(apikey, etutorium_id) {
 			document.getElementById(id + 'moreinfo').style.display = 'block';
 		}
 	};
-	
+
 	this.setallweblist = function(data){
 		this.allweblist = data;
 	};
-	
+
 	this.setuserweblist = function(data){
 		this.userweblist = data;
 	};
-	
+
 	this.closeinfo = function(id) {
 		document.getElementById(id + 'moreinfo').style.display = 'none';
 		document.getElementById(id + 'moreinfo').style.width = '0%';
 		document.getElementById(id).style.width = '100%';
 	};
-	
+
 	this.getuserwebinarlist = function(){
 		document.getElementById('error').innerHTML = '';
 		data = {};
@@ -150,7 +152,7 @@ function AdminJs(apikey, etutorium_id) {
 				}
 			});
 	};
-	
+
 	this.addWebinar = function(id){
 		document.getElementById('error').innerHTML = '';
 		data = this.getwebinarbyid(id);
@@ -168,8 +170,9 @@ function AdminJs(apikey, etutorium_id) {
 				} else {
 					newallweblist = [];
 					for (key in q.allweblist){
-						if (q.allweblist[key].id != id)
+						if (q.allweblist[key].id != id) {
 							newallweblist.push(q.allweblist[key]);
+						}
 					}
 					q.allweblist = newallweblist;
 					document.getElementById('allweblist' + id).remove();
@@ -178,7 +181,7 @@ function AdminJs(apikey, etutorium_id) {
 			}
 		);
 	};
-	
+
 	this.delWebinar = function(id) {
 		document.getElementById('error').innerHTML = '';
 		data = this.getusewebinarbyid(id);
@@ -196,7 +199,7 @@ function AdminJs(apikey, etutorium_id) {
 					q.userweblist.splice(data.key, 1);
 					document.getElementById('userweblist' + id).remove();
 					q.getallwebinarlist();
-				} 
+				}
 			}
 		);
 	};

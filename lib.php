@@ -1,4 +1,24 @@
-<?php  // $Id: lib.php,v 1.7.2.5 2009/04/22 21:30:57 skodak Exp $
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+/**
+ * @author Petrina Alexandr <info@aktivcorp.com>
+ * @copyright (c) 2016, Aktive Corporation
+ * @version 1.0
+ * @package mod/etutorium
+ */
 
 /**
  * Library of functions and constants for module etutorium
@@ -15,24 +35,31 @@
  *     actions across all modules.
  */
 
-/// (replace etutorium with the name of your module and delete this line)
-
-$etutorium_EXAMPLE_CONSTANT = 42;     /// for example
-
 function etutorium_supports($feature) {
-	switch($feature) {
-        case FEATURE_MOD_ARCHETYPE:           return MOD_ARCHETYPE_RESOURCE;
-        case FEATURE_GROUPS:                  return true;
-        case FEATURE_GROUPINGS:               return true;
-        case FEATURE_GROUPMEMBERSONLY:        return true;
-        case FEATURE_MOD_INTRO:               return true;
-        case FEATURE_COMPLETION_TRACKS_VIEWS: return true;
-        case FEATURE_GRADE_HAS_GRADE:         return false;
-        case FEATURE_GRADE_OUTCOMES:          return false;
-        case FEATURE_BACKUP_MOODLE2:          return true;
-        case FEATURE_SHOW_DESCRIPTION:        return true;
+    switch($feature) {
+        case FEATURE_MOD_ARCHETYPE:
+            return MOD_ARCHETYPE_RESOURCE;
+        case FEATURE_GROUPS:
+            return true;
+        case FEATURE_GROUPINGS:
+            return true;
+        case FEATURE_GROUPMEMBERSONLY:
+            return true;
+        case FEATURE_MOD_INTRO:
+            return true;
+        case FEATURE_COMPLETION_TRACKS_VIEWS:
+            return true;
+        case FEATURE_GRADE_HAS_GRADE:
+            return false;
+        case FEATURE_GRADE_OUTCOMES:
+            return false;
+        case FEATURE_BACKUP_MOODLE2:
+            return true;
+        case FEATURE_SHOW_DESCRIPTION:
+            return true;
 
-        default: return null;
+        default:
+            return null;
     }
 }
 /**
@@ -45,7 +72,7 @@ function etutorium_supports($feature) {
  * @return int The id of the newly inserted etutorium record
  */
 function etutorium_add_instance(stdClass $etutorium, mod_etutorium_mod_form $mform = null) {
-    global $DB,$USER;
+    global $DB, $USER;
     $etutorium->timecreated = time();
     return $DB->insert_record('etutorium', $etutorium);
 }
@@ -63,8 +90,6 @@ function etutorium_update_instance(stdClass $etutorium, mod_etutorium_mod_form $
 
     $etutorium->timemodified = time();
     $etutorium->id = $etutorium->instance;
-
-    # You may have to add extra stuff in here #
 
     return $DB->update_record('etutorium', $etutorium);
 }
@@ -130,7 +155,7 @@ function etutorium_user_complete($course, $user, $mod, $etutorium) {
  * @todo Finish documenting this function
  */
 function etutorium_print_recent_activity($course, $isteacher, $timestart) {
-    return false;  //  True if anything was printed, otherwise false
+    return false;
 }
 
 
@@ -209,46 +234,31 @@ function etutorium_install() {
     return true;
 }
 
-
-/**
- * Execute post-uninstall custom actions for the module
- * This function was added in 1.9
- *
- * @return boolean true if success, false on error
- */
-//function etutorium_uninstall() {
-//    return true;
-//}
-
-
-//////////////////////////////////////////////////////////////////////////////////////
-/// Any other etutorium functions go here.  Each of them must have a name that
-/// starts with etutorium_
-/// Remember (see note in first lines) that, if this section grows, it's HIGHLY
-/// recommended to move all funcions below to a new "localib.php" file.
-
-function renderfile($view, $data=array(), $path=''){
+function renderfile($view, $etutoriummynewdata = array(), $path = '') {
     global $CFG;
-    if (empty($path))
+    if (empty($path)) {
         $path = 'mod/'.basename(__DIR__);
-    $filepath=$CFG->dirroot.'/'.$path.'/'.$view.'View.php';
-    $content="";
-    if (file_exists($filepath)){
-        extract($data, EXTR_OVERWRITE);
+    }
+    $filepath = $CFG->dirroot.'/'.$path.'/'.$view.'View.php';
+    $content = '';
+    if (file_exists($filepath)) {
+        foreach ($etutoriummynewdata as $key => $value) {
+            $$key = $value;
+        }
         ob_start();
-        include $filepath;
+        include($filepath);
         $content = ob_get_contents();
         ob_end_clean();
     }
     return $content;
 }
 
-function renderjson($result, $error = ''){
+function renderjson($result, $error = '') {
     $resultarr = array(
         'error' => $error,
-        'result' =>$result,
+        'result' => $result,
     );
     echo json_encode($resultarr);
     exit;
 }
-?>
+

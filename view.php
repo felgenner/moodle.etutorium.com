@@ -1,18 +1,30 @@
-<?php  // $Id: view.php,v 1.6.2.3 2009/04/17 22:06:25 skodak Exp $
-
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 /**
- * This page prints a particular instance of etutorium
- *
- * @author  Petrina Alexandr <your@email.address>
- * @version $Id: view.php,v 1.6.2.3 2009/04/17 22:06:25 skodak Exp $
+ * @author Petrina Alexandr <info@aktivcorp.com>
+ * @copyright (c) 2016, Aktive Corporation
+ * @version 1.0
  * @package mod/etutorium
  */
 
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 
-$id = optional_param('id', 0, PARAM_INT); // course_module ID, or
-$a  = optional_param('a', 0, PARAM_INT);  // etutorium instance ID
+$id = optional_param('id', 0, PARAM_INT);
+$a  = optional_param('a', 0, PARAM_INT);
 
 if ($id) {
     if (! $cm = get_coursemodule_from_id('etutorium', $id)) {
@@ -44,27 +56,18 @@ if ($id) {
 
 require_login($course, true, $cm);
 
-add_to_log($course->id, "etutorium", "view", "view.php?id=$cm->id", "$etutorium->id");
+add_to_log($course->id, 'etutorium', 'view', 'view.php?id='.$cm->id, $etutorium->id);
 
-/// Print the page header
 $stretutoriums = get_string('modulenameplural', 'etutorium');
 $stretutorium  = get_string('modulename', 'etutorium');
 
-//$navlinks = array();
-//$navlinks[] = array('name' => format_string($etutorium->name), 'link' => '', 'type' => 'activityinstance');
-//
-//$navigation = build_navigation($navlinks);
-
-//print_header_simple(format_string($etutorium->name), '', $navigation, '', '', true,
-//              update_module_button($cm->id, $course->id, $stretutorium), navmenu($course, $cm));
 $PAGE->set_url('/mod/etutorium/view.php', array('id' => $cm->id));
 
 $context = context_course::instance($course->id);
 
 echo $OUTPUT->header();
-/// Print the main part of the page
 
-$usewebinar = $DB->get_records('etutoriumwebinars',array('etutorium_id' => $etutorium->id));
+$usewebinar = $DB->get_records('etutoriumwebinars', array('etutorium_id' => $etutorium->id));
 $PAGE->requires->js('/mod/etutorium/js/send.js');
 
 if (has_capability('mod/etutorium:addwebinar', $context)) {
@@ -81,7 +84,7 @@ if (has_capability('mod/etutorium:addwebinar', $context)) {
         'userweblist' => $usewebinar,
         'id' => 'useweblist',
     ));
-} elseif (has_capability('mod/etutorium:connect', $context)) {
+} else if (has_capability('mod/etutorium:connect', $context)) {
     $PAGE->requires->js('/mod/etutorium/js/connect.js');
     $PAGE->requires->strings_for_js(array(
         'fullingfields',
@@ -94,5 +97,3 @@ if (has_capability('mod/etutorium:addwebinar', $context)) {
 }
 
 echo $OUTPUT->footer();
-
-?>

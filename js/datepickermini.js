@@ -1,5 +1,5 @@
 var DatePickerMini = function(){
-	
+
 	var name;
 	var day;
 	var month;
@@ -13,14 +13,14 @@ var DatePickerMini = function(){
 	 */
 	var typedata;
 	var selector;
-	
+
 	this.init = function (name, typedata, selector){
 		this.name = name;
 		this.typedata = typedata;
 		this.selector = selector;
 		this.getdate();
 	};
-	
+
 	this.getdate = function (){
 		this.day = document.getElementById(this.name + 'day').options[document.getElementById(this.name + 'day').selectedIndex].value;
 		this.month = document.getElementById(this.name + 'month').options[document.getElementById(this.name + 'month').selectedIndex].value;
@@ -28,27 +28,29 @@ var DatePickerMini = function(){
 		this.changecountday();
 		this.inserttofield(this.constructdate());
 	};
-	
+
 	this.changecountday = function () {
 		res = '';
 		exist = false
-		for (i=1;i<=this.countdayinmonth();i++) {
-			res = res + '<option value ='; 
-			if (i < 10)
+		for (i = 1; i <= this.countdayinmonth(); i++) {
+			res = res + '<option value =';
+			if (i < 10) {
 				res = res + '"0' + i + '"';
-			else
+			} else {
 				res = res + '"' + i + '"';
-			if (i == this.day*1) {
+			}
+			if (i == this.day * 1) {
 				res = res + ' selected';
 				exist = true;
 			}
 			res = res + '>' + i + '</option>';
 		}
-		if (!exist)
+		if (!exist) {
 			this.day = '01';
+		}
 		document.getElementById(this.name + 'day').innerHTML = res;
 	};
-	
+
 	this.countdayinmonth = function (){
 		count = {
 			'01' : '31',
@@ -66,16 +68,17 @@ var DatePickerMini = function(){
 		};
 		return count[this.month];
 	};
-	
+
 	this.countfebruary = function() {
-		if ((this.year * 1) % 4 == 0)
+		if ((this.year * 1) % 4 == 0) {
 			return 29;
-		else
+		} else {
 			return 28;
+		}
 	};
-	
+
 	this.constructdate = function(){
-		res='';
+		res = '';
 		switch (this.typedata[0]){
 			case 'd': res = res + this.day; break;
 			case 'm': res = res + this.month; break;
@@ -96,8 +99,8 @@ var DatePickerMini = function(){
 		console.log(this.name + '-' + res);
 		return res;
 	};
-	
-	this.inserttofield=function(data){
+
+	this.inserttofield = function(data){
 		document.getElementById(this.name).value = data;
 	};
 };

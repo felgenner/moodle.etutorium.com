@@ -19,9 +19,10 @@
  * This file replaces the legacy STATEMENTS section in db/install.xml,
  * lib.php/modulename_install() post installation hook and partially defaults.php.
  *
- * @package    mod_etutorium
- * @copyright  2015 Your Name <your@email.adress>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author Petrina Alexandr <info@aktivcorp.com>
+ * @copyright (c) 2016, Aktive Corporation
+ * @version 1.0
+ * @package mod/etutorium
  */
 /**
  * Post installation procedure

@@ -4,7 +4,7 @@ function ConnectJs(apikey, etutorium) {
 	this.fieldlist = [];
 	this.requiredfieldlist = [];
 	this.count = 0;
-	
+
 	this.setevent = function() {
 		q = this;
 		for (key in document.getElementsByTagName('a')) {
@@ -17,7 +17,7 @@ function ConnectJs(apikey, etutorium) {
 			}
 		}
 	};
-	
+
 	this.getRegFields = function(webinar_id) {
 		q = this;
 		send(
@@ -29,15 +29,16 @@ function ConnectJs(apikey, etutorium) {
 			function (data) {
 				if (data.error != '') {
 					translate = M.util.get_string(data.error, 'etutorium');
-					if (translate != '[[' + data.error + ',etutorium]]')
+					if (translate != '[[' + data.error + ',etutorium]]') {
 						alert(translate);
-					else
+					} else {
 						alert(data.error);
+					}
 				} else {
 					q.fieldlist = data.result.fieldlist;
 					q.requiredfieldlist = data.result.requiredfieldlist;
 					q.count = data.result.count;
-					
+
 					if (q.count == 0) {
 						q.webinarConnect(webinar_id);
 					} else {
@@ -48,7 +49,7 @@ function ConnectJs(apikey, etutorium) {
 			}
 		);
 	};
-	
+
 	this.webinarConnect = function(webinarid) {
 		data = {
 			webinarid: webinarid,
@@ -56,8 +57,9 @@ function ConnectJs(apikey, etutorium) {
 		};
 		check = true;
 		for (key in this.requiredfieldlist) {
-			if (document.getElementById(this.fieldlist[key]).value.trim() == '')
+			if (document.getElementById(this.fieldlist[key]).value.trim() == '') {
 				check = false;
+			}
 		}
 		if (!check) {
 			document.getElementById('regfielderror').innerHTML = M.util.get_string('fullingfields', 'etutorium');
@@ -69,17 +71,16 @@ function ConnectJs(apikey, etutorium) {
 				'/mod/etutorium/webinarConnect.php',
 				data,
 				function (data) {
-					if (data.error != '')
+					if (data.error != '') {
 						alert(data.error);
-					else {
+					} else {
 						document.location.href = data.result.authurl;
 					}
 				}
 			);
 		}
 	};
-	
+
 	this.returnerror = function(error){
-		
 	};
 }

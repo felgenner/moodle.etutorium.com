@@ -18,9 +18,10 @@
  *
  * @see uninstall_plugin()
  *
- * @package    mod_etutorium
- * @copyright  2015 Your Name <your@email.adress>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author Petrina Alexandr <info@aktivcorp.com>
+ * @copyright (c) 2016, Aktive Corporation
+ * @version 1.0
+ * @package mod/etutorium
  */
 /**
  * Custom uninstallation procedure
