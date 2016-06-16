@@ -10,11 +10,11 @@ $string['etutoriumfieldset'] = 'Custom example fieldset';
 $string['etutoriumintro'] = 'Description';
 $string['etutoriumname'] = 'Name';
 
-$string['ApiKey'] = 'ApiKey';
+$string['apikey'] = 'ApiKey';
 $string['findwebinar'] = 'Find Webinars';
 $string['incorrectapikey'] = 'Incorrect Api Key';
 $string['curlerror'] = 'Curl not initialized';
-$string['ID'] = 'ID';
+$string['id'] = 'ID';
 $string['title'] = 'Webinar Name';
 $string['start_time'] = 'Start webinar';
 $string['finish_time'] = 'Finish webinar';
@@ -31,7 +31,7 @@ $string['future'] = 'Future';
 
 $string['webinar_exist'] = 'Webinar already exist';
 $string['pluginadministration'] = 'Edit etutorium';
-$string['FillFields'] = 'Please, fill this fields';
+$string['fillfields'] = 'Please, fill this fields';
 $string['fullingfields'] = 'Required field(s) is empty';
 
 $string['modulename_help'] = 'Use the newmodule module for connecting to webinar on etutorium';
