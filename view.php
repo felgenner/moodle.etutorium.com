@@ -66,6 +66,14 @@ $context = context_course::instance($course->id);
 echo $OUTPUT->header();
 
 $usewebinar = $DB->get_records('etutoriumwebinars', array('etutorium_id' => $etutorium->id));
+foreach ($usewebinar as $key=>$webinar) {
+    $usewebinar[$key]->start_time = date('Y-m-d H:i:s', $webinar->start_time);
+    if (!empty($usewebinar[$key]->finish_time)) {
+        $usewebinar[$key]->finish_time = date('Y-m-d H:i:s', $webinar->finish_time);
+    } else {
+        $usewebinar[$key]->finish_time = get_string('finish_time_undefined', 'etutorium');
+    }
+}
 $PAGE->requires->js('/mod/etutorium/js/send.js');
 
 if (has_capability('mod/etutorium:addwebinar', $context)) {
