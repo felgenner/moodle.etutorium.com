@@ -56,8 +56,6 @@ if ($id) {
 
 require_login($course, true, $cm);
 
-add_to_log($course->id, 'etutorium', 'view', 'view.php?id='.$cm->id, $etutorium->id);
-
 $stretutoriums = get_string('modulenameplural', 'etutorium');
 $stretutorium  = get_string('modulename', 'etutorium');
 

@@ -29,6 +29,9 @@ $apikey = optional_param('apikey', '', PARAM_TEXT);
 $usewebinar = $DB->get_records('etutoriumwebinars', array('etutorium_id' => $id));
 $u = array();
 foreach ($usewebinar as $value) {
+    if (empty($value->finish_time)) {
+        $value->finish_time = get_string('finish_time_undefined', 'etutorium');
+    }
     $u[] = $value;
 }
 renderjson([

@@ -59,7 +59,7 @@ if (empty($userweblist)) {
         <tr id="<?php echo $webinar->id; ?>">
             <td><?php echo $webinar->title; ?></td>
             <td><?php echo $webinar->start_time; ?></td>
-            <td><?php echo $webinar->finish_time; ?></td>
+            <td><?php echo (!empty($webinar_finish_time))?$webinar->finish_time:get_string('finish_time_undefined', 'etutorium'); ?></td>
             <td style="text-align: center;">
                 <a href="./connect.php?webinar_id=<?php echo $webinar->webinar_id; ?>&id=<?php
                 echo $etutorium->id; ?>" target="_blank" id="link<?php echo $webinar->webinar_id; ?>">

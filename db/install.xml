@@ -29,8 +29,8 @@
 			<FIELD NAME="webinar_id" SEQUENCE="false" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" COMMENT="Etutorium webinar id" PREVIOUS="etutorium_id" NEXT="title" />
 			<FIELD NAME="title" SEQUENCE="false" TYPE="char" LENGTH="128" NOTNULL="true" COMMENT="Webinar title" PREVIOUS="webinar_id" NEXT="description" />
 			<FIELD NAME="description" SEQUENCE="false" TYPE="text" LENGTH="medium" NOTNULL="false" COMMENT="Webinar description" PREVIOUS="title" NEXT="start_time" />
-			<FIELD NAME="start_time" SEQUENCE="false" TYPE="datetime" LENGTH="10" NOTNULL="false" DEFAULT="0" COMMENT="Webinar start time" PREVIOUS="description" NEXT="finish_time"/>
-			<FIELD NAME="finish_time" SEQUENCE="false" TYPE="datetime" LENGTH="10" NOTNULL="false" DEFAULT="0" COMMENT="Webinar start time" PREVIOUS="start_time"/>
+			<FIELD NAME="start_time" SEQUENCE="false" TYPE="datetime" LENGTH="10" NOTNULL="false" DEFAULT="NULL" COMMENT="Webinar start time" PREVIOUS="description" NEXT="finish_time" />
+			<FIELD NAME="finish_time" SEQUENCE="false" TYPE="datetime" LENGTH="10" NOTNULL="false" DEFAULT="NULL" COMMENT="Webinar start time" PREVIOUS="start_time" />
 		</FIELDS>
 		<KEYS>
 			<KEY NAME="primary" TYPE="primary" FIELDS="id" />

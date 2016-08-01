@@ -78,6 +78,8 @@ if ($curl = curl_init()) {
                 $json['response'][$key]['start_time'] = changetimewithtimezone($value['start_time'], $value['timezone']);
                 if (!empty($value['finish_time'])) {
                     $json['response'][$key]['finish_time'] = changetimewithtimezone($value['finish_time'], $value['timezone']);
+                } else {
+                    $json['response'][$key]['finish_time'] = get_string('finish_time_undefined', 'etutorium');
                 }
             }
 

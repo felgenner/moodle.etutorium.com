@@ -26,10 +26,6 @@ require_once(dirname(__FILE__).'/dataconnect.php');
 
 $apikey = optional_param('apikey', '', PARAM_TEXT);
 
-if (!has_capability('mod/etutorium:addwebinar', $context)) {
-    renderjson('', get_string('permission-denied', 'etutorium'));
-}
-
 if ($curl = curl_init()) {
     curl_setopt($curl, CURLOPT_URL, $dataconnect->getpath(basename(__FILE__)));
     curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);

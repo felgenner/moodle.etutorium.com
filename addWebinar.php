@@ -55,8 +55,8 @@ if (!empty($record)) {
     $newwebinar->webinar_id = $webinarid;
     $newwebinar->title = $title;
     $newwebinar->description = $description;
-    $newwebinar->start_time = (!empty($starttime) && (strtolower($starttime)) != 'null') ? $starttime : '0000-00-00 00:00:00';
-    $newwebinar->finish_time = (!empty($finishtime) && (strtolower($finishtime)) != 'null') ? $finishtime : '0000-00-00 00:00:00';
+    $newwebinar->start_time = (!empty($starttime) && (strtolower($starttime)) != 'null') ? $starttime : null;
+    $newwebinar->finish_time = (!empty($finishtime) && $finishtime != get_string('finish_time_undefined', 'etutorium')) ? $finishtime : null;
     $DB->insert_record('etutoriumwebinars', $newwebinar);
     renderjson('ok');
 }

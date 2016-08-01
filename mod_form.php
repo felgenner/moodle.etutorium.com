@@ -69,7 +69,11 @@ class mod_etutorium_mod_form extends moodleform_mod {
         $mform->addRule('apikey', null, 'required', null, 'client');
         $mform->addRule('apikey', get_string('incorrectapikey', 'etutorium'), 'regex', '/[a-z0-9\_]{10,40}/', 'client');
         $mform->setType('apikey', PARAM_TEXT);
-        $this->add_intro_editor();
+        if ($CFG->release >= '2.9') {
+            $this->standard_intro_elements();
+        } else {
+            $this->add_intro_editor();
+        }
 
         $this->standard_coursemodule_elements();
 
