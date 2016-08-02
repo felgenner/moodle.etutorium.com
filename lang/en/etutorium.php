@@ -43,4 +43,4 @@ $string['etutorium:addinstance'] = 'Add new Etutorium';
 $string['etutorium:addwebinar'] = 'Find and add webinar';
 $string['etutorium:connect'] = 'Connect to webinar';
 $string['participant-webinar-not-found'] = 'Webinar not found';
-?>
+$string['finish_time_undefined'] = 'Not specified';

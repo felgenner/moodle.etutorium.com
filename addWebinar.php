@@ -57,8 +57,25 @@ if (!empty($record)) {
     $newwebinar->webinar_id = $webinarid;
     $newwebinar->title = $title;
     $newwebinar->description = $description;
-    $newwebinar->start_time = (!empty($starttime) && (strtolower($starttime)) != 'null') ? $starttime : '0000-00-00 00:00:00';
-    $newwebinar->finish_time = (!empty($finishtime) && (strtolower($finishtime)) != 'null') ? $finishtime : '0000-00-00 00:00:00';
+    
+    if (!empty($starttime)) {
+        $newtime = new DateTime($starttime);
+        $newstarttime = $newtime->getTimestamp();
+    } else {
+        $newstarttime = 0;
+    }
+
+    $newwebinar->start_time = $newstarttime;
+
+    if (empty($finishtime) || $finishtime == get_string('finish_time_undefined', 'etutorium')) {
+        $newfinishtime = 0;
+    } else {
+        $newtime = new DateTime($finishtime);
+        $newfinishtime = $newtime->format('Y-m-d H:i:s');
+    }
+
+    $newwebinar->finish_time = $newfinishtime;
+
     $DB->insert_record('etutoriumwebinars', $newwebinar);
     renderjson('ok');
 }

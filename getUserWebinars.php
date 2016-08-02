@@ -41,6 +41,12 @@ require_login($course, true, $cm);
 $usewebinar = $DB->get_records('etutoriumwebinars', array('etutorium_id' => $id));
 $u = array();
 foreach ($usewebinar as $value) {
+    $value->start_time = date('Y-m-d H:i:s', $value->start_time);
+    if (empty($value->finish_time)) {
+        $value->finish_time = get_string('finish_time_undefined', 'etutorium');
+    } else {
+        $value->finish_time = date('Y-m-d H:i:s', $value->finish_time);
+    }
     $u[] = $value;
 }
 renderjson([
