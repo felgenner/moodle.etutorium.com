@@ -23,7 +23,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 $plugin->component = 'mod_etutorium';
-$plugin->version = 2015101500;
+$plugin->version = 2016081500;
 $plugin->release = 'v0.1';
 $plugin->requires = 2015101500;
 $plugin->maturity = MATURITY_ALPHA;

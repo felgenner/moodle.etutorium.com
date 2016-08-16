@@ -60,3 +60,12 @@ function renderjson($result, $error = '') {
     echo json_encode($resultarr);
     exit;
 }
+
+/**
+ * return true or false if use post request
+ * @return bool
+ */
+function ispost() {
+    $headers = apache_request_headers();
+    return count($_POST) > 0 || isset($headers['Content-Type']);
+}
