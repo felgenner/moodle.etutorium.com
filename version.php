@@ -20,5 +20,5 @@
  * @package mod/etutorium
  */
 
-$module->version  = 2015101500;
+$module->version  = 2016081500;
 $module->cron     = 0;

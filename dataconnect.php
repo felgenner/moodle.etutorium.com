@@ -20,6 +20,8 @@
  * @package mod/etutorium
  */
 
+require_once(dirname(__FILE__).'/locallib.php');
+
 class dataconnect
 {
     const PROTOCOL = 'https';

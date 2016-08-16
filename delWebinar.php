@@ -22,6 +22,11 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
+require_once(dirname(__FILE__).'/locallib.php');
+
+if (!ispost()) {
+    die;
+}
 
 $id = optional_param('id', '', PARAM_INT);
 $etutoriumid = optional_param('etutorium_id', '', PARAM_INT);

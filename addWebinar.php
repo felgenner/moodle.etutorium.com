@@ -21,6 +21,11 @@
  */
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
+require_once(dirname(__FILE__).'/locallib.php');
+
+if (!ispost()) {
+    die;
+}
 
 $webinarid = optional_param('id', '', PARAM_INT);
 $etutoriumid = optional_param('etutorium_id', '', PARAM_INT);
@@ -69,7 +74,7 @@ if (!empty($record)) {
         $newfinishtime = 0;
     } else {
         $newtime = new DateTime($finishtime);
-        $newfinishtime = $newtime->format('Y-m-d H:i:s');
+        $newfinishtime = $newtime->getTimestamp();
     }
 
     $newwebinar->finish_time = $newfinishtime;

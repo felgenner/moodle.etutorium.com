@@ -22,68 +22,54 @@
 
 function xmldb_etutorium_upgrade($oldversion=0) {
 
-    global $CFG, $THEME, $db;
+    global $DB;
 
-    $result = true;
+    $dbman = $DB->get_manager();
 
-    if ($result && $oldversion < 2007040100) {
+    if ($oldversion < 2016081500) {
 
-        $table = new XMLDBTable('etutorium');
-        $field = new XMLDBField('course');
-        $field->setAttributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0', 'id');
+        $alldata = $DB->get_records_sql('select * from {etutoriumwebinars}');
 
-        $result = $result && add_field($table, $field);
+        $res = $DB->get_records_sql('SHOW COLUMNS FROM {etutoriumwebinars}');
 
-        $table = new XMLDBTable('etutorium');
-        $field = new XMLDBField('intro');
-        $field->setAttributes(XMLDB_TYPE_TEXT, 'medium', null, null, null, null, null, null, 'name');
+        $table = new xmldb_table('etutoriumwebinars');
 
-        $result = $result && add_field($table, $field);
+        if ($res['start_time']->type != 'bigint(10)') {
+            $field = new xmldb_field('start_time');
+            $dbman->drop_field($table, $field);
+            $field = new xmldb_field('start_time', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'description');
+            $dbman->add_field($table, $field);
+        }
 
-        $table = new XMLDBTable('etutorium');
-        $field = new XMLDBField('introformat');
-        $field->setAttributes(XMLDB_TYPE_INTEGER, '4', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0', 'intro');
+        if ($res['finish_time']->type != 'bigint(10)') {
+            $field = new xmldb_field('finish_time');
+            $dbman->drop_field($table, $field);
+            $field = new xmldb_field('finish_time', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'start_time');
+            $dbman->add_field($table, $field);
+        }
+        
+        foreach ($alldata as $row) {
+            $change = false;
 
-        $result = $result && add_field($table, $field);
+            if (preg_match('/[0-9]{4}\-[0-9]{2}\-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2}/', $row->start_time)) {
+                $newtime = new DateTime($row->start_time);
+                $row->start_time = $newtime->getTimestamp();
+                $change = true;
+            }
+
+            if (preg_match('/[0-9]{4}\-[0-9]{2}\-[0-9]{2} [0-9]{2}\:[0-9]{2}\:[0-9]{2}/', $row->finish_time)) {
+                $newtime = new DateTime($row->finish_time);
+                $row->finish_time = ($row->finish_time != '0000-00-00 00:00:00')?$newtime->getTimestamp():0;
+                $change = true;
+            }
+
+            if ($change) {
+                $DB->update_record('etutoriumwebinars', $row);
+            }
+        }
     }
 
-    if ($result && $oldversion < 2007040101) {
-
-        $table = new XMLDBTable('etutorium');
-        $field = new XMLDBField('timecreated');
-        $field->setAttributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0', 'introformat');
-
-        $result = $result && add_field($table, $field);
-
-        $table = new XMLDBTable('etutorium');
-        $field = new XMLDBField('timemodified');
-        $field->setAttributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0', 'timecreated');
-
-        $result = $result && add_field($table, $field);
-
-        $table = new XMLDBTable('etutorium');
-        $index = new XMLDBIndex('course');
-        $index->setAttributes(XMLDB_INDEX_NOTUNIQUE, array('course'));
-
-        $result = $result && add_index($table, $index);
-    }
-
-    if ($result && $oldversion < 2007040200) {
-
-        $rec = new stdClass;
-        $rec->module = 'etutorium';
-        $rec->action = 'add';
-        $rec->mtable = 'etutorium';
-        $rec->filed  = 'name';
-
-        $result = insert_record('log_display', $rec);
-
-        $rec->action = 'update';
-        $result = insert_record('log_display', $rec);
-
-        $rec->action = 'view';
-        $result = insert_record('log_display', $rec);
-    }
-    return $result;
+    upgrade_mod_savepoint(true, 2016081500, 'etutorium');
+    return true;
 }
 

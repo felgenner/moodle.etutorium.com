@@ -24,6 +24,10 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/dataconnect.php');
 
+if (!ispost()) {
+    die;
+}
+
 $id = required_param('etutorium', PARAM_INT);
 $apikey = required_param('apikey', PARAM_TEXT);
 $accountid = optional_param('account_id', 0, PARAM_INT);

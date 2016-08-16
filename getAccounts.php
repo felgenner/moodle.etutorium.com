@@ -24,6 +24,10 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/dataconnect.php');
 
+if (!ispost()) {
+    die;
+}
+
 $apikey = optional_param('apikey', '', PARAM_TEXT);
 
 if ($curl = curl_init()) {
