@@ -21,6 +21,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 /**
  * read file and return
  * @param string $view filename
@@ -28,7 +30,7 @@
  * @param string $path path to file or use default path
  * @return string
  */
-function renderfile($view, $etutoriummynewdata = array(), $path = '') {
+function etutorium_renderfile($view, $etutoriummynewdata = array(), $path = '') {
     global $CFG;
     if (empty($path)) {
         $path = 'mod/'.basename(__DIR__);
@@ -52,7 +54,7 @@ function renderfile($view, $etutoriummynewdata = array(), $path = '') {
  * @param string $result result
  * @param string $error error
  */
-function renderjson($result, $error = '') {
+function etutorium_renderjson($result, $error = '') {
     $resultarr = array(
         'error' => $error,
         'result' => $result,
@@ -65,7 +67,7 @@ function renderjson($result, $error = '') {
  * return true or false if use post request
  * @return bool
  */
-function ispost() {
+function etutorium_ispost() {
     $headers = apache_request_headers();
     return count($_POST) > 0 || isset($headers['Content-Type']);
 }

@@ -24,11 +24,11 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/dataconnect.php');
 
-if (!ispost()) {
+if (!etutorium_ispost()) {
     die;
 }
 
-$apikey = optional_param('apikey', '', PARAM_TEXT);
+$apikey = required_param('apikey', PARAM_TEXT);
 
 if ($curl = curl_init()) {
     curl_setopt($curl, CURLOPT_URL, $dataconnect->getpath(basename(__FILE__)));
@@ -45,11 +45,11 @@ if ($curl = curl_init()) {
     $json = json_decode($out, true);
     if (isset ($json['ok'])) {
         if ($json['ok']) {
-            renderjson($json['response']['accounts'], '');
+            etutorium_renderjson($json['response']['accounts'], '');
         } else if (isset($json['error'])) {
-            renderjson ('', implode('<br>', $json['error']));
+            etutorium_renderjson ('', implode('<br>', $json['error']));
         } else if (isset($json['validate'])) {
-            renderjson('', 'Error validate: '.implode(', ', $json['validate']));
+            etutorium_renderjson('', 'Error validate: '.implode(', ', $json['validate']));
         }
     } else {
         $error = (isset($json['message'])) ? $json['message'] : 'error';

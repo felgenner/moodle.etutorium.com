@@ -24,7 +24,7 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/dataconnect.php');
 
-if (!ispost()) {
+if (!etutorium_ispost()) {
     die;
 }
 
@@ -101,7 +101,7 @@ if ($curl = curl_init()) {
                     }
                 }
             }
-            $result = renderfile('getWebinars', array(
+            $result = etutorium_renderfile('getWebinars', array(
                 'data' => array(
                     'data' => $json['response'],
                     'id' => 'allweblist',
@@ -109,15 +109,15 @@ if ($curl = curl_init()) {
                     'apikey' => $apikey,
                     'etutorium_id' => $id)
                 ));
-            renderjson([
+            etutorium_renderjson([
                 'table' => $result,
                 'id' => 'allweblist',
                 'data' => $json['response'],
             ], $error);
         } else if (isset($json['error'])) {
-            renderjson ('', implode('<br>', $json['error']));
+            etutorium_renderjson ('', implode('<br>', $json['error']));
         } else if (isset($json['validate'])) {
-            renderjson('', 'Error validate: '.implode(', ', $json['validate']));
+            etutorium_renderjson('', 'Error validate: '.implode(', ', $json['validate']));
         }
     } else {
         $error = (isset($json['message'])) ? $json['message'] : 'error';
@@ -126,7 +126,7 @@ if ($curl = curl_init()) {
     $error = get_string('curlerror', 'etutorium');
 }
 
-renderjson($result, $error);
+etutorium_renderjson($result, $error);
 
 function changetimewithtimezone($time, $timezone) {
     $newtime = new DateTime($time, new DateTimeZone($timezone));

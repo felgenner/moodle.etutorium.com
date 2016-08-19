@@ -24,14 +24,14 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/dataconnect.php');
 
-$id = optional_param('id', '', PARAM_INT);
-$webinarid = optional_param('webinarid', '', PARAM_INT);
+$id = required_param('id', '', PARAM_INT);
+$webinarid = required_param('webinarid', '', PARAM_INT);
 
 $etutorium = $DB->get_record('etutorium', array('id' => $id));
 $webinar = $DB->get_record('etutoriumwebinars', array('webinar_id' => $webinarid, 'etutorium_id' => $etutorium->id));
 
 if (empty($etutorium) || empty($webinar)) {
-    renderjson ('', get_string('webinarnotfound', 'etutorium'));
+    etutorium_renderjson ('', get_string('webinarnotfound', 'etutorium'));
 }
 
 if ($curl = curl_init()) {
@@ -58,17 +58,17 @@ if ($curl = curl_init()) {
 
     if (isset ($json['ok'])) {
         if ($json['ok']) {
-            renderjson($json['response'], '');
+            etutorium_renderjson($json['response'], '');
         } else if (isset($json['error'])) {
-            renderjson ('', implode('<br>', $json['error']));
+            etutorium_renderjson('', implode('<br>', $json['error']));
         } else if (isset($json['validate'])) {
-            renderjson('', 'Error validate: '.implode(', ', $json['validate']));
+            etutorium_renderjson('', 'Error validate: '.implode(', ', $json['validate']));
         }
     } else {
-        renderjson ('', (isset($json['message'])) ? $json['message'] : 'error');
+        etutorium_renderjson ('', (isset($json['message'])) ? $json['message'] : 'error');
     }
 } else {
-    renderjson ('', get_string('curlerror', 'etutorium'));
+    etutorium_renderjson ('', get_string('curlerror', 'etutorium'));
 }
 
 

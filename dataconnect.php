@@ -20,6 +20,8 @@
  * @package mod/etutorium
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 require_once(dirname(__FILE__).'/locallib.php');
 
 class dataconnect

@@ -24,12 +24,12 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/locallib.php');
 
-if (!ispost()) {
+if (!etutorium_ispost()) {
     die;
 }
 
-$id = optional_param('id', '', PARAM_INT);
-$etutoriumid = optional_param('etutorium_id', '', PARAM_INT);
+$id = required_param('id', '', PARAM_INT);
+$etutoriumid = required_param('etutorium_id', '', PARAM_INT);
 
 if (! $etutorium = $DB->get_record('etutorium', array('id' => $etutoriumid))) {
     error('Course module is incorrect');
@@ -44,8 +44,8 @@ require_login($course, true, $cm);
 
 $context = context_course::instance($course->id);
 if (!has_capability('mod/etutorium:addwebinar', $context)) {
-    renderjson('', get_string('permission-denied', 'etutorium'));
+    etutorium_renderjson('', get_string('permission-denied', 'etutorium'));
 }
 
 $DB->delete_records('etutoriumwebinars', array('id' => $id, 'etutorium_id' => $etutoriumid));
-renderjson('ok');
+etutorium_renderjson('ok');

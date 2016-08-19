@@ -24,8 +24,8 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/dataconnect.php');
 
-$webinarid = optional_param('webinar_id', '', PARAM_INT);
-$id = optional_param('id', '', PARAM_INT);
+$webinarid = required_param('webinar_id', PARAM_INT);
+$id = required_param('id', PARAM_INT);
 
 $etutorium = $DB->get_record('etutorium', array('id' => $id));
 $webinar = $DB->get_record('etutoriumwebinars', array('webinar_id' => $webinarid, 'etutorium_id' => $etutorium->id));
@@ -115,5 +115,5 @@ $PAGE->requires->strings_for_js(array(
 ), 'etutorium');
 
 echo $OUTPUT->header();
-echo renderfile('connect', array('result' => $result, 'error' => $error, 'etutorium' => $etutorium));
+echo etutorium_renderfile('connect', array('result' => $result, 'error' => $error, 'etutorium' => $etutorium));
 echo $OUTPUT->footer();
