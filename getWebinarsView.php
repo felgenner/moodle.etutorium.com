@@ -31,7 +31,7 @@ $data['data'] = json_decode(json_encode($data['data']), true);
                 echo get_string('status', 'etutorium');
 } ?></th>
             <th class="header" style="width: 10%;"></th>
-        </tr><?php 
+        </tr><?php
 if (empty($data['data'])) {
             ?>
         <tr>
@@ -54,7 +54,7 @@ if (empty($data['data'])) {
             <td style="cursor:pointer;" onclick="webinaredit.viewmore(<?php echo $webinar['id']; ?>, '<?php echo $data['id']; ?>')">
             <?php echo $webinar['title']; ?>
             </td>
-            <?php 
+            <?php
         if ($data['id'] == 'allweblist') {
 ?><td style='text-align: center; cursor:pointer;' onclick="webinaredit.viewmore(<?php
                 echo $webinar['id']; ?>, '<?php echo $data['id']; ?>')">
@@ -70,7 +70,7 @@ if (empty($data['data'])) {
                 </td><?php
         } ?>
             <td style="text-align: center;">
-                <input type="button" value=" <?php 
+                <input type="button" value=" <?php
                 echo ($data['action'] == 'add') ? '+' : '-'; ?> " onclick="webinaredit.<?php
                 echo $data['action']; ?>Webinar(<?php echo $webinar['id']; ?>)">
             </td>
@@ -81,6 +81,5 @@ if (empty($data['data'])) {
     </table>
 </div>
 <div style="float: left; width: 0%;" id="<?php echo $data['id']; ?>moreinfo" style="display: none;">
-    
 </div>
 <div style="clear: left;"></div>
