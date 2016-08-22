@@ -91,7 +91,7 @@ class dataconnect
 
     /**
      * return path to etutorium connection
-     * @param string $pathname 
+     * @param string $pathname
      * @return string
      */
     public function returnpath($pathname) {

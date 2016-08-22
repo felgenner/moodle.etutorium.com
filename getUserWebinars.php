@@ -20,9 +20,7 @@
  * @package mod_etutorium
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
-require_once(dirname(__FILE__).'/locallib.php');
+defined('MOODLE_INTERNAL') || die();
 
 $id = optional_param('etutorium', '', PARAM_INT);
 $apikey = optional_param('apikey', '', PARAM_TEXT);
@@ -49,8 +47,8 @@ foreach ($usewebinar as $value) {
     }
     $u[] = $value;
 }
-renderjson([
-    'table' => renderfile('getWebinars', array(
+etutorium_renderjson([
+    'table' => etutorium_renderfile('getWebinars', array(
         'data' => array(
             'data' => $u,
             'id' => 'userweblist',

@@ -28,7 +28,7 @@ require_once(__DIR__.'/datepickermini.php');
 <div style="height:15px;">&nbsp;</div>
 <div id="usewebinarlist">
 <?php
-echo $result = renderfile('getWebinars', array(
+echo $result = etutorium_renderfile('getWebinars', array(
     'data' => array(
         'data' => $userweblist,
         'id' => 'userweblist',
@@ -52,7 +52,7 @@ echo $result = renderfile('getWebinars', array(
     ?>];
         });
     } else {
-        window.onload = function(){ 
+        window.onload = function(){
             webinaredit = new AdminJs('<?php echo $etutorium->apikey; ?>', <?php echo $etutorium->id; ?>);
         };
     }

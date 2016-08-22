@@ -80,6 +80,5 @@ $data['data'] = json_decode(json_encode($data['data']), true);
     </table>
 </div>
 <div style="float: left; width: 0%;" id="<?php echo $data['id']; ?>moreinfo" style="display: none;">
-    
 </div>
 <div style='clear: left;'></div>

@@ -67,6 +67,7 @@ function etutorium_supports($feature) {
  * of the new instance.
  *
  * @param object $etutorium An object from the form in mod_form.php
+ * @param object $mform form
  * @return int The id of the newly inserted etutorium record
  */
 function etutorium_add_instance(stdClass $etutorium, mod_etutorium_mod_form $mform = null) {
@@ -81,6 +82,7 @@ function etutorium_add_instance(stdClass $etutorium, mod_etutorium_mod_form $mfo
  * will update an existing instance with new data.
  *
  * @param object $etutorium An object from the form in mod_form.php
+ * @param object $mform form
  * @return boolean Success/Fail
  */
 function etutorium_update_instance(stdClass $etutorium, mod_etutorium_mod_form $mform = null) {
@@ -121,6 +123,11 @@ function etutorium_delete_instance($id) {
  * $return->time = the time they did it
  * $return->info = a short text description
  *
+ * @param object $course course
+ * @param object $user User
+ * @param object $mod Mod
+ * @param object $etutorium Etutorium
+ *
  * @return null
  * @todo Finish documenting this function
  */
@@ -136,6 +143,11 @@ function etutorium_user_outline($course, $user, $mod, $etutorium) {
  * Print a detailed representation of what a user has done with
  * a given particular instance of this module, for user activity reports.
  *
+ * @param object $course Course
+ * @param object $user User
+ * @param object $mod Mod
+ * @param object $etutorium Etutorium
+ *
  * @return boolean
  * @todo Finish documenting this function
  */
@@ -148,6 +160,10 @@ function etutorium_user_complete($course, $user, $mod, $etutorium) {
  * Given a course and a time, this module should find recent activity
  * that has occurred in etutorium activities and print it out.
  * Return true if there was output, or false is there was none.
+ *
+ * @param object $course Course
+ * @param bool $isteacher user is teacher or not
+ * @param int $timestart timestamp
  *
  * @return boolean
  * @todo Finish documenting this function
@@ -191,6 +207,7 @@ function etutorium_get_participants($etutoriumid) {
  * as reference.
  *
  * @param int $etutoriumid ID of an instance of this module
+ * @param int $scaleid Scale ID
  * @return mixed
  * @todo Finish documenting this function
  */

@@ -25,8 +25,14 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot.'/course/moodleform_mod.php');
 
+/**
+ * Standard class to creating form
+ */
 class mod_etutorium_mod_form extends moodleform_mod {
 
+    /**
+     * set form parameters
+     */
     public function definition() {
 
         global $CFG;

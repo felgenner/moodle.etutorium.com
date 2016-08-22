@@ -122,5 +122,5 @@ $PAGE->requires->strings_for_js(array(
 ), 'etutorium');
 
 echo $OUTPUT->header();
-echo renderfile('connect', array('result' => $result, 'error' => $error, 'etutorium' => $etutorium));
+echo etutorium_renderfile('connect', array('result' => $result, 'error' => $error, 'etutorium' => $etutorium));
 echo $OUTPUT->footer();

@@ -1,4 +1,4 @@
-<?php  //$Id: upgrade.php,v 1.2 2007/08/08 22:36:54 stronk7 Exp $
+<?php
 
 // This file keeps track of upgrades to
 // the etutorium module
@@ -64,10 +64,8 @@ function xmldb_etutorium_upgrade($oldversion=0) {
                 $DB->update_record('etutoriumwebinars', $row);
             }
         }
+        upgrade_mod_savepoint(true, 2016081500, 'etutorium');
     }
 
-    upgrade_mod_savepoint(true, 2016081500, 'etutorium');
     return true;
 }
-
-?>

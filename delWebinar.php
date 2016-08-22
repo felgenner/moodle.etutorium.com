@@ -20,13 +20,7 @@
  * @package mod_etutorium
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
-require_once(dirname(__FILE__).'/locallib.php');
-
-if (!ispost()) {
-    die;
-}
+defined('MOODLE_INTERNAL') || die();
 
 $id = optional_param('id', '', PARAM_INT);
 $etutoriumid = optional_param('etutorium_id', '', PARAM_INT);
@@ -43,4 +37,4 @@ if (! $cm = get_coursemodule_from_instance('etutorium', $etutorium->id, $course-
 require_login($course, true, $cm);
 
 $DB->delete_records('etutoriumwebinars', array('id' => $id, 'etutorium_id' => $etutoriumid));
-renderjson('ok');
+etutorium_renderjson('ok');

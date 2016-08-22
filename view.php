@@ -88,7 +88,7 @@ if (has_capability('mod/etutorium:addwebinar', $context)) {
         'finish_time',
         'adderror',
     ), 'etutorium');
-    echo renderfile('admin', array(
+    echo etutorium_renderfile('admin', array(
         'etutorium' => $etutorium,
         'userweblist' => $usewebinar,
         'id' => 'useweblist',
@@ -99,7 +99,7 @@ if (has_capability('mod/etutorium:addwebinar', $context)) {
         'fullingfields',
         'participant-webinar-not-found',
     ), 'etutorium');
-    echo renderfile('student', array(
+    echo etutorium_renderfile('student', array(
         'etutorium' => $etutorium,
         'userweblist' => $usewebinar,
     ));

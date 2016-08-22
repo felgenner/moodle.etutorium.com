@@ -20,13 +20,7 @@
  * @package mod_etutorium
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
-require_once(dirname(__FILE__).'/locallib.php');
-
-if (!ispost()) {
-    die;
-}
+defined('MOODLE_INTERNAL') || die();
 
 $webinarid = optional_param('id', '', PARAM_INT);
 $etutoriumid = optional_param('etutorium_id', '', PARAM_INT);
@@ -48,20 +42,20 @@ require_login($course, true, $cm);
 
 $context = context_course::instance($course->id);
 if (!has_capability('mod/etutorium:addwebinar', $context)) {
-    renderjson('', get_string('permission-denied', 'etutorium'));
+    etutorium_renderjson('', get_string('permission-denied', 'etutorium'));
 }
 
 $record = $DB->get_records_sql('select id from {etutoriumwebinars} where webinar_id = ? and etutorium_id = ?',
     array($webinarid, $etutoriumid));
 if (!empty($record)) {
-    renderjson ('', get_string('webinar_exist', 'etutorium'));
+    etutorium_renderjson ('', get_string('webinar_exist', 'etutorium'));
 } else {
     $newwebinar = new stdClass();
     $newwebinar->etutorium_id = $etutoriumid;
     $newwebinar->webinar_id = $webinarid;
     $newwebinar->title = $title;
     $newwebinar->description = $description;
-    
+
     if (!empty($starttime)) {
         $newtime = new DateTime($starttime);
         $newstarttime = $newtime->getTimestamp();
@@ -81,5 +75,5 @@ if (!empty($record)) {
     $newwebinar->finish_time = $newfinishtime;
 
     $DB->insert_record('etutoriumwebinars', $newwebinar);
-    renderjson('ok');
+    etutorium_renderjson('ok');
 }
