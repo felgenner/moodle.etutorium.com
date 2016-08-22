@@ -24,8 +24,8 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 require_once(dirname(__FILE__).'/dataconnect.php');
 
-$id = required_param('id', '', PARAM_INT);
-$webinarid = required_param('webinarid', '', PARAM_INT);
+$id = required_param('id', PARAM_INT);
+$webinarid = required_param('webinarid', PARAM_INT);
 
 $etutorium = $DB->get_record('etutorium', array('id' => $id));
 $webinar = $DB->get_record('etutoriumwebinars', array('webinar_id' => $webinarid, 'etutorium_id' => $etutorium->id));

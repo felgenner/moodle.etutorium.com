@@ -19,16 +19,10 @@
  * @version 1.0
  * @package mod/etutorium
  */
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
-require_once(dirname(__FILE__).'/locallib.php');
-
-if (!etutorium_ispost()) {
-    die;
-}
+defined('MOODLE_INTERNAL') || die();
 
 $webinarid = required_param('id', PARAM_INT);
-$etutoriumid = requires_param('etutorium_id', PARAM_INT);
+$etutoriumid = required_param('etutorium_id', PARAM_INT);
 $title = required_param('title', PARAM_TEXT);
 $description = required_param('description', PARAM_TEXT);
 $starttime = optional_param('start_time', 0, PARAM_TEXT);

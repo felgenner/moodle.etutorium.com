@@ -1,4 +1,5 @@
 /* global document: false */
+/* global variables: ActiveXObject, XMLHttpRequest, console */
 function etutorium_getXmlHttp() {
     'use strict';
     var xmlhttp;
@@ -19,15 +20,16 @@ function etutorium_getXmlHttp() {
     return xmlhttp;
 }
 
-function etutorium_send(url, data, func) {
+function etutorium_send(action, data, func) {
     'use strict';
     var xhr = etutorium_getXmlHttp();
     var bodyarray = [];
+    data.action = action;
     Object.keys(data).forEach(function (key) {
         bodyarray.push(key + '=' + encodeURIComponent(data[key]));
     });
     var body = bodyarray.join('&');
-    xhr.open('POST', url, true);
+    xhr.open('POST', 'ajax.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function () {
         if (this.readyState !== 4) {

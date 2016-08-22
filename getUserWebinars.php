@@ -20,12 +20,10 @@
  * @package mod/etutorium
  */
 
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
-require_once(dirname(__FILE__).'/locallib.php');
+defined('MOODLE_INTERNAL') || die();
 
-$id = required_param('etutorium', '', PARAM_INT);
-$apikey = required_param('apikey', '', PARAM_TEXT);
+$id = required_param('etutorium', PARAM_INT);
+$apikey = required_param('apikey', PARAM_TEXT);
 
 $usewebinar = $DB->get_records('etutoriumwebinars', array('etutorium_id' => $id));
 $u = array();

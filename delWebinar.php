@@ -20,16 +20,10 @@
  * @package mod/etutorium
  */
 
-require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
-require_once(dirname(__FILE__).'/lib.php');
-require_once(dirname(__FILE__).'/locallib.php');
+defined('MOODLE_INTERNAL') || die();
 
-if (!etutorium_ispost()) {
-    die;
-}
-
-$id = required_param('id', '', PARAM_INT);
-$etutoriumid = required_param('etutorium_id', '', PARAM_INT);
+$id = required_param('id', PARAM_INT);
+$etutoriumid = required_param('etutorium_id', PARAM_INT);
 
 if (! $etutorium = $DB->get_record('etutorium', array('id' => $etutoriumid))) {
     error('Course module is incorrect');

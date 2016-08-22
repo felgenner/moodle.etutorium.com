@@ -28,7 +28,7 @@ function ConnectJs(cjs_apikey, cjs_etutorium) {
     this.getRegFields = function (webinar_id) {
         var q = this;
         etutorium_send(
-            'getRegfields.php',
+            'getRegfields',
             {
                 webinar_id: webinar_id,
                 apikey: apikey
@@ -75,7 +75,7 @@ function ConnectJs(cjs_apikey, cjs_etutorium) {
                 data[fieldlist[key]] = document.getElementById(fieldlist[key]).value;
             });
             etutorium_send(
-                'webinarConnect.php',
+                'webinarConnect',
                 data,
                 function (responsedata) {
                     if (responsedata.error !== '') {

@@ -1,4 +1,5 @@
 /* global document: false */
+/* global variables: document, alert, etutorium_send, M */
 function AdminJs(apikey, etutorium_id) {
     'use strict';
     this.apikey = apikey;
@@ -10,18 +11,28 @@ function AdminJs(apikey, etutorium_id) {
         document.getElementById('error').innerHTML = '';
         if (document.getElementById('searchpanel').style.display === 'none') {
             etutorium_send(
-                'getAccounts.php',
+                'getAccounts',
                 {apikey: this.apikey},
                 function (data) {
                     if (data.error !== '') {
                         document.getElementById('error').innerHTML = data.error;
                     } else {
-                        var res = '<select id="accountselect">';
+                        var select = document.createElement('select');
+                        select.setAttribute('id', 'accountselect');
+                        var option;
                         Object.keys(data.result).forEach(function (key) {
-                            res = res + '<option value=\'' + data.result[key].id + '\'>' + data.result[key].last_name + ' ' + data.result[key].first_name + '<\/option>';
+                            option = document.createElement('option');
+                            option.setAttribute('value', data.result[key].id);
+                            option.appendChild(
+                                document.createTextNode(
+                                    data.result[key].last_name + ' ' + data.result[key].first_name
+                                )
+                            );
+                            select.appendChild(option);
                         });
-                        res = res + '<\/select>';
-                        document.getElementById('account').innerHTML = res;
+                        var accountblock = document.getElementById('account');
+                        accountblock.innerHTML = '';
+                        accountblock.appendChild(select);
                         document.getElementById('searchpanel').style.display = 'block';
                     }
                 }
@@ -49,7 +60,7 @@ function AdminJs(apikey, etutorium_id) {
         }
         var q = this;
         etutorium_send(
-            'getWebinars.php',
+            'getWebinars',
             data,
             function (data) {
                 if (data.error !== '') {
@@ -84,33 +95,76 @@ function AdminJs(apikey, etutorium_id) {
         if (webinar.result === false) {
             alert('Not found');
         } else {
-            document.getElementById(id + 'moreinfo').innerHTML = '<table style="width:100%;">' +
-                    '<tr>' +
-                    '<td style="text-align:right; cursor:pointer;" onclick="webinaredit.closeinfo(\'' + id + '\')" colspan=2> X </td>' +
-                    '</tr>' +
-                    '<tr>' +
-                    '<th style="text-align:left; width:40%;">' + M.util.get_string('title', 'etutorium') + '</th>' +
-                    '<td>' + webinar.result.title + '</td>' +
-                    '</tr>' +
-                    '<tr>' +
-                    '<th style="text-align:left;">' + M.util.get_string('start_time', 'etutorium') + '</th>' +
-                    '<td>' + webinar.result.start_time + '</td>' +
-                    '</tr>' +
-                    '<tr>' +
-                    '<th style="text-align:left;">' + M.util.get_string('finish_time', 'etutorium') + '</th>' +
-                    '<td>' + webinar.result.finish_time + '</td>' +
-                    '</tr>' +
-                    '<tr>' +
-                    '<th colspan="2" style="text-align:left;">' + M.util.get_string('description', 'etutorium') + '</th>' +
-                    '</tr>' +
-                    '<tr>' +
-                    '<td>' + webinar.result.description + '</td>' +
-                    '</tr>' +
-                    '</table>';
-            document.getElementById(id).style.width = '50%';
-            document.getElementById(id + 'moreinfo').style.width = '50%';
-            document.getElementById(id + 'moreinfo').style.display = 'block';
+            this.moreinfo(id, webinar.result);
         }
+    };
+
+    this.moreinfo = function (id, data) {
+        var table = document.createElement('table');
+        table.style.width = '100%';
+
+        var tr = document.createElement('tr');
+        var td = document.createElement('td');
+        td.style.cursor = 'pointer';
+        td.style.textAlign = 'right';
+        td.setAttribute('onclick', 'webinaredit.closeinfo(\'' + id + '\')');
+        td.setAttribute('colspan', 2);
+        td.appendChild(document.createTextNode(' X '));
+        tr.appendChild(td);
+        table.appendChild(tr);
+
+        tr = document.createElement('tr');
+        var th = document.createElement('th');
+        th.style.width = '40%';
+        th.style.textAlign = 'left';
+        th.appendChild(document.createTextNode(M.util.get_string('title', 'etutorium')));
+        tr.appendChild(th);
+        td = document.createElement('td');
+        td.appendChild(document.createTextNode(data.title));
+        tr.appendChild(td);
+        table.appendChild(tr);
+
+        tr = document.createElement('tr');
+        th = document.createElement('th');
+        th.style.width = '40%';
+        th.style.textAlign = 'left';
+        th.appendChild(document.createTextNode(M.util.get_string('start_time', 'etutorium')));
+        tr.appendChild(th);
+        td = document.createElement('td');
+        td.appendChild(document.createTextNode(data.start_time));
+        tr.appendChild(td);
+        table.appendChild(tr);
+
+        tr = document.createElement('tr');
+        th = document.createElement('th');
+        th.style.width = '40%';
+        th.style.textAlign = 'left';
+        th.appendChild(document.createTextNode(M.util.get_string('finish_time', 'etutorium')));
+        tr.appendChild(th);
+        td = document.createElement('td');
+        td.appendChild(document.createTextNode(data.title));
+        tr.appendChild(td);
+        table.appendChild(tr);
+
+        tr = document.createElement('tr');
+        th = document.createElement('th');
+        th.style.textAlign = 'left';
+        th.setAttribute('colspan', 2);
+        th.appendChild(document.createTextNode(M.util.get_string('description', 'etutorium')));
+        tr.appendChild(th);
+        table.appendChild(tr);
+
+        tr = document.createElement('tr');
+        td = document.createElement('td');
+        td.setAttribute('colspan', 2);
+        td.appendChild(document.createTextNode(data.description));
+        tr.appendChild(td);
+        table.appendChild(tr);
+
+        document.getElementById(id).style.width = '50%';
+        document.getElementById(id + 'moreinfo').style.width = '50%';
+        document.getElementById(id + 'moreinfo').style.display = 'block';
+        document.getElementById(id + 'moreinfo').appendChild(table);
     };
 
     this.setallweblist = function (data) {
@@ -124,6 +178,7 @@ function AdminJs(apikey, etutorium_id) {
     this.closeinfo = function (id) {
         document.getElementById(id + 'moreinfo').style.display = 'none';
         document.getElementById(id + 'moreinfo').style.width = '0%';
+        document.getElementById(id + 'moreinfo').innerHTML = '';
         document.getElementById(id).style.width = '100%';
     };
 
@@ -134,7 +189,7 @@ function AdminJs(apikey, etutorium_id) {
         data.etutorium = this.etutorium_id;
         var q = this;
         etutorium_send(
-            'getUserWebinars.php',
+            'getUserWebinars',
             data,
             function (data) {
                 if (data.error !== '') {
@@ -155,7 +210,7 @@ function AdminJs(apikey, etutorium_id) {
         requestdata.apikey = this.apikey;
         var q = this;
         etutorium_send(
-            'addWebinar.php',
+            'addWebinar',
             requestdata,
             function (result) {
                 if (result.result !== 'ok') {
@@ -180,7 +235,7 @@ function AdminJs(apikey, etutorium_id) {
         var data = this.getwebinarbyid(id, this.userweblist);
         var q = this;
         etutorium_send(
-            'delWebinar.php',
+            'delWebinar',
             {
                 id: id,
                 etutorium_id: this.etutorium_id
