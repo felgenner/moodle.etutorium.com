@@ -164,6 +164,7 @@ function AdminJs(apikey, etutorium_id) {
         document.getElementById(id).style.width = '50%';
         document.getElementById(id + 'moreinfo').style.width = '50%';
         document.getElementById(id + 'moreinfo').style.display = 'block';
+        document.getElementById(id + 'moreinfo').innerHTML = '';
         document.getElementById(id + 'moreinfo').appendChild(table);
     };
 
