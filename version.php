@@ -20,6 +20,5 @@
  * @package mod/etutorium
  */
 
-$plugin->version  = 2016081500;
-$plugin->cron     = 0;
-$plugin->component = 'mod_etutorium';
+$module->version  = 2016081500;
+$module->cron     = 0;
