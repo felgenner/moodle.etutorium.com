@@ -31,11 +31,11 @@ $string['etutoriumfieldset'] = 'Custom example fieldset';
 $string['etutoriumintro'] = 'Description';
 $string['etutoriumname'] = 'Name';
 
-$string['ApiKey'] = 'ApiKey';
+$string['apikey'] = 'ApiKey';
 $string['findwebinar'] = 'Find Webinars';
 $string['incorrectapikey'] = 'Incorrect Api Key';
 $string['curlerror'] = 'Curl not initialized';
-$string['ID'] = 'ID';
+$string['id'] = 'ID';
 $string['title'] = 'Webinar Name';
 $string['start_time'] = 'Start webinar';
 $string['finish_time'] = 'Finish webinar';
